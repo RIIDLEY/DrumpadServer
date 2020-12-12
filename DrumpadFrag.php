@@ -32,6 +32,18 @@ function artiste()
       }
 }
 
+function etoileMoyenne()
+{
+  if(isset($_POST['musique']) and !preg_match("#^\s*$#",$_POST['musique']))
+  {
+    $m = ModelDrum::getModel();
+    $data = $m->getEtoileArray($_POST['musique']);
+    $resultat = 1*$data[0]['1etoile']+2*$data[0]['2etoile']+3*$data[0]['3etoile']+4*$data[0]['4etoile']+5*$data[0]['5etoile'];
+    $resultat=$resultat/($data[0]['1etoile']+$data[0]['2etoile']+$data[0]['3etoile']+$data[0]['4etoile']+$data[0]['5etoile']);
+    echo $resultat;
+      }
+}
+
 if (isset($_POST['fonction'])){
 
   switch ($_POST['fonction']){
@@ -46,6 +58,9 @@ if (isset($_POST['fonction'])){
       break;
     case 'artiste':
         artiste();
+        break;
+    case 'etoileMoyenne':
+        etoileMoyenne();
         break;
     default:
       break;

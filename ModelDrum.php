@@ -171,4 +171,16 @@ class ModelDrum
                     die('Echec getClientArray, erreur n°' . $e->getCode() . ':' . $e->getMessage());
                 }
             }
+
+            public function getEtoileArray($musique)
+            {
+                try {
+                    $requete = $this->bd->prepare('Select 1etoile,2etoile,3etoile,4etoile,5etoile from musique where musique = :musique');
+                    $requete->bindValue(':musique', $musique);
+                    $requete->execute();
+                    return $requete->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    die('Echec getEtoileArray, erreur n°' . $e->getCode() . ':' . $e->getMessage());
+                }
+            }
 }
